@@ -1,4 +1,4 @@
-# seattle-python-401d14
+# Seattle Python 401d14
 
 ## Course Overview
 
