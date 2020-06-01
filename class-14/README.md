@@ -19,7 +19,3 @@ Today we'll focus on telling the story of our data analysis visually.
 - Use Seaborn within notebooks
 - Load and display external datasets.
 - Choose most effective visualizations.
-
-## Today's Outline
-
-<!-- To Be Completed By Instructor -->
