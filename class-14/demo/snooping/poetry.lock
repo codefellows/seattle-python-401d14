@@ -1,0 +1,20 @@
+[[package]]
+category = "main"
+description = "A poor man's debugger for Python."
+name = "pysnooper"
+optional = false
+python-versions = "*"
+version = "0.4.1"
+
+[package.extras]
+tests = ["pytest"]
+
+[metadata]
+content-hash = "2e771f0b249709a2155b6cb92aeda52a55dcbe3fed3c85ae5b67666c48cf9383"
+python-versions = "^3.8"
+
+[metadata.files]
+pysnooper = [
+    {file = "PySnooper-0.4.1-py2.py3-none-any.whl", hash = "sha256:c33b45d69c1e0108e964ea45ee3b7a10d7e7c25b8cd7b50781076a919bec777b"},
+    {file = "PySnooper-0.4.1.tar.gz", hash = "sha256:b441e0a852f836e15c5ae36ef57d1537f63b35d256d0da18e7d48f3e82a7cff6"},
+]

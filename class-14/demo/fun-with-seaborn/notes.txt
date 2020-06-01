@@ -1,0 +1,77 @@
+But many folks prefer to use tools built on top of Matplotlib
+    import matplotlib.pyplot as plt
+
+let's plot some lines
+    plt.figure()
+    x1 = [10,20,5,40,8]
+    x2 = [30,43,9,7,20]
+    plt.plot(x1, label="Group Spam")
+    plt.plot(x2, label="Group Eggs")
+    plt.legend()
+    plt.show()
+
+But many folks prefer to use tools built on top of Matplotlib
+    import seaborn as sns
+
+As we saw recently, Seaborn is such a tool. Seaborn can pretty up Matplotlib very easily.
+    sns.set()
+
+Seaborn has taken control of the figure's aesthetics.
+
+Now show the matplotlib plots again
+
+
+
+Seaborn has some very handy data sets built in
+
+    flights = sns.load_dataset("flights")
+
+And we can use them just like a dataframe that came from a CSV
+
+    sns.relplot(x="year",y="passengers", hue="month", data=flights)
+
+Let's consolidate the data by combining months
+
+    year_sums = flights.groupby("year", as_index=False).sum()
+    sns.relplot(x='year', y='passengers', data=year_sums)
+
+
+And we can make some predictions.
+
+    sns.lmplot(x="year",y="passengers",data=year_sums)
+
+
+Apparently more people are flying year over year (unless there's a pandemic)
+
+But do those visualizations best convey that notion?
+Or are there better choices available?
+
+How much work would it take to use another type of graph in Seaborn?
+
+    graph = sns.barplot(x="month", y="passengers", data=flights)
+
+
+Hmm. We're getting somewhere but those month labels are all smushed up
+
+    from calendar import month_abbr
+
+    g=sns.barplot(x="month",y="passengers", data=flights)
+
+    g.set_xticklabels(labels=list(month_abbr)[1:])
+
+    print()
+
+
+
+What are those black lines jutting out the top?
+That's called the confidence interval
+
+You can modify (or remove) them if you like
+
+    from calendar import month_abbr
+
+    g=sns.barplot(x="month",y="passengers", data=flights, ci=95)
+
+    g.set_xticklabels(labels=list(month_abbr)[1:])
+
+    print()
