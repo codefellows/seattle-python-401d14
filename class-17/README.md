@@ -22,4 +22,5 @@ If a service exposes an API then you're good to go. But what if they haven't? Th
 
 ## Today's Outline
 
-<!-- To Be Completed By Instructor -->
+- Code challenge/lab review
+- Monster jobs website scraping using BeautifulSoup
