@@ -32,11 +32,11 @@ class SnackTests(TestCase):
     def test_snack_list_view(self):
         response = self.client.get(reverse('snack_list'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'pickle')
+        self.assertContains(response, 'Snack: pickle')
         self.assertTemplateUsed(response, 'snack_list.html')
 
     def test_snack_detail_view(self):
-        response = self.client.get('/snacks/1/')
+        response = self.client.get(reverse('snack_detail', args='1')) #'/snacks/1/')
         no_response = self.client.get('/snacks/100000/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(no_response.status_code, 404)
@@ -54,6 +54,7 @@ class SnackTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Chicharrones')
         self.assertContains(response, 'Low carb')
+        self.assertTemplateUsed(response, 'snack_create.html')
 
 
     def test_snack_update_view(self):
@@ -62,6 +63,19 @@ class SnackTests(TestCase):
             'description': 'Updated description',
         })
         self.assertEqual(response.status_code, 302)
+
+    def test_snack_update_view_redirect(self):
+        response = self.client.post(reverse('snack_update',args='1'), {
+            'name': 'Updated name',
+            'description': 'Updated description',
+        }, follow=True)
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, 'Updated name')
+
+        self.assertTemplateUsed('snack_detail.html')
+
 
     def test_snack_delete_view(self):
         response = self.client.get(reverse('snack_delete',args='1'))
