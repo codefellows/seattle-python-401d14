@@ -13,10 +13,15 @@ class TestCustomUser(TestCase):
         )
 
         self.assertIsInstance(user, CustomUser)
+        self.assertEqual(user.username, 'tester')
         self.assertEqual(user.email, 'tester@email.com')
+
         self.assertIsNotNone(user.password)
+        self.assertNotEqual(user.password, 'pass')
+
 
     def test_no_dupe_email(self):
+
         user_1 = get_user_model().objects.create_user(
             username='tester',
             email='tester@email.com',
@@ -34,4 +39,4 @@ class TestCustomUser(TestCase):
             print('all good')
 
         else:
-            self.fail('no bueno')
+            self.fail('email uniqueness failed')

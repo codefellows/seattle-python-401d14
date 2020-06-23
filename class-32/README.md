@@ -24,6 +24,6 @@ We will also be adding `permissions` to our Django apps so that users are allowe
 - Restrict certain actions based on logged in user
 - Create a custom permission policy
 
-## Today's Outline
+<!--## Today's Outline-->
 
 <!-- To Be Completed By Instructor -->
