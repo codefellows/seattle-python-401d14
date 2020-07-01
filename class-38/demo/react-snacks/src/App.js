@@ -10,36 +10,44 @@ class App extends React.Component {
                 {
                     id: 1,
                     name: 'apple',
-                    type: 'fruit',
+                    category: 'fruit',
                 },
                 {
                     id: 2,
                     name: 'snickers',
-                    type: 'candy',
+                    category: 'candy',
                 }
 
             ],
-            popularSnack: '???'
+            latestSnack: null
         }
 
         this.snackCreatedHandler = this.snackCreatedHandler.bind(this);
+
+        this.state.latestSnack = this.state.snacks[this.state.snacks.length - 1];
+
     }
 
     snackCreatedHandler(snack) {
-        alert(snack.name);
+
         const updatedSnacks = this.state.snacks;
-        updatedSnacks.push({name:"???",type:"???",id:"???"})
+
+        updatedSnacks.push({name:snack.name,type:"???",id:Math.floor(Math.random() * 10000)}) // WARNING: random just for now
+
         this.setState({
-            snacks : updatedSnacks
+            snacks : updatedSnacks,
+            latestSnack : snack
         })
     }
 
     render() {
         return (
         <div className="App">
-            <Header popularSnack={this.state.popularSnack} />
+            <Header latestSnack={this.state.latestSnack} />
             <main>
-                <SnackList snacks={this.state.snacks} onSnackCreate={this.snackCreatedHandler} />
+                <SnackList snacks={this.state.snacks} />
+                {/* Note the lab may want the form in different location */}
+                <SnackForm onSnackCreateKiwi={this.snackCreatedHandler} otherStuff="whatever" />
             </main>
             <Footer text="whatever" />
         </div>
@@ -59,7 +67,6 @@ function SnackList(props) {
         <ul>
            {props.snacks.map(snack => <Snack item={snack} key={snack.id} />)}
         </ul>
-        <SnackForm onSnackCreate={props.onSnackCreate} />
         </>
 
     )
@@ -70,22 +77,30 @@ class SnackForm extends React.Component {
         super(props)
         this.state = {
             name : '???',
-            snackType: '',
+            category: '???',
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        const newName = event.target.value;
-        this.setState({
-            name: newName
-        })
+
+        if(event.target.name === "snack-name") {
+            const newName = event.target.value;
+            this.setState({
+                name: newName,
+            })
+        } else { // must be snack-category
+            const newCategory = event.target.value;
+            this.setState({
+                category: newCategory
+            })
+        }
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.onSnackCreate(this.state);
+        this.props.onSnackCreateKiwi(this.state);
     }
 
     render() {
@@ -94,22 +109,29 @@ class SnackForm extends React.Component {
                 <label>
                     Name:
                     <input
-                    type="text" value={this.state.name} onChange={this.handleChange}>
+                    name="snack-name" type="text" value={this.state.name} onChange={this.handleChange}>
                     </input>
                 </label>
+                <label>
+                    Category:
+                    <input
+                    name="snack-category" type="text" value={this.state.category} onChange={this.handleChange}>
+                    </input>
+                </label>
+                <button>ok</button>
             </form>
         )
     }
 }
 
 function Snack(props) {
-    return <li>I am snack {props.item.name}</li>
+    return <li>I am snack {props.item.name} and I am {props.item.category}</li>
 }
 
 
 function Header(props) {
 
-    return <h2>Popular snack is {props.popularSnack}</h2>
+    return <h2>Popular snack is {props.latestSnack.name}, {props.latestSnack.category}</h2>
 }
 
 function Footer(props) {
