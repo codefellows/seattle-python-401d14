@@ -1,0 +1,28 @@
+.nav {
+
+    border: 1px solid green;
+
+    ul {
+        @apply flex;
+
+        li {
+            @apply mr-3;
+
+            a {
+                @apply inline-block border border-white rounded  text-blue-500 py-1 px-3;
+            }
+
+            a:hover {
+                @apply border-gray-200 bg-gray-200;
+            }
+
+            a.active {
+                @apply inline-block border border-blue-500 rounded py-1 px-3 bg-blue-500 text-white;
+            }
+        }
+    }
+  }
+
+
+
+
